@@ -10,7 +10,7 @@ import com.example.demo.console.RemoteSyncTask;
 
 /**
  * Console / administrative entry point
- *
+ * 
  * This runs only when the "console" profile is active, e.g.:
  * Use this runner to perform 12-factor style administrative tasks.
  * https://12factor.net/admin-processes
@@ -42,12 +42,11 @@ public class DemoAdminRunner implements CommandLineRunner {
 
         String taskName = args[0];
 
-        switch (taskName) {
-            case "remote-sync" -> {
-                LOG.info("Executing console task: remote-sync");
-                remoteSyncTask.execute();
-            }
-            default -> LOG.warn("Unknown console task: {}. Supported tasks: remote-sync", taskName);
+        if (taskName.equals("remote-sync")) {
+            LOG.info("Executing console task: remote-sync");
+            remoteSyncTask.execute();
+        } else {
+            LOG.warn("Unknown console task: {}. Supported tasks: remote-sync", taskName);
         }
 
     }
