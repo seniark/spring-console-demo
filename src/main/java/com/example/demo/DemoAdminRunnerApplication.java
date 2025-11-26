@@ -10,20 +10,20 @@ import com.example.demo.console.RemoteSyncTask;
 
 /**
  * Console / administrative entry point
- * 
+ *
  * This runs only when the "console" profile is active, e.g.:
  * Use this runner to perform 12-factor style administrative tasks.
  * https://12factor.net/admin-processes
  */
 @Component
 @Profile("console")
-public class DemoAdminRunner implements CommandLineRunner {
+public class DemoAdminRunnerApplication implements CommandLineRunner {
 
-    private static final Logger LOG = LoggerFactory.getLogger(DemoAdminRunner.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DemoAdminRunnerApplication.class);
 
     private final RemoteSyncTask remoteSyncTask;
 
-    public DemoAdminRunner(RemoteSyncTask remoteSyncTask) {
+    public DemoAdminRunnerApplication(RemoteSyncTask remoteSyncTask) {
         this.remoteSyncTask = remoteSyncTask;
     }
 
