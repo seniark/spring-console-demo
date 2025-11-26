@@ -1,0 +1,49 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '4.0.0'
+	id 'io.spring.dependency-management' version '1.1.7'
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+description = 'Demo of console vs. web'
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(21)
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	// Core Spring Boot (including logging, auto-configuration, etc.)
+	implementation 'org.springframework.boot:spring-boot-starter'
+
+	// Web starter so the standard app can expose REST endpoints
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
+
+// By default, `bootRun` will start the standard web application
+tasks.named('bootRun') {
+	mainClass = 'com.example.demo.DemoApplication'
+}
+
+// Separate task to run the console / administrative application (no web server)
+import org.springframework.boot.gradle.tasks.run.BootRun
+
+tasks.register('bootRunConsole', BootRun) {
+	group = 'application'
+	description = 'Run the console Spring Boot application for administrative tasks'
+	mainClass = 'com.example.demo.ConsoleApplication'
+	classpath = sourceSets.main.runtimeClasspath
+}
